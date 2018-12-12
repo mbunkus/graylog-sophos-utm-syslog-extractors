@@ -1,0 +1,122 @@
+{
+  "extractors": [
+    {
+      "title": "Syslog field \"timestamp\"",
+      "extractor_type": "regex",
+      "converters": [
+        {
+          "type": "date",
+          "config": {
+            "date_format": "yyyy:MM:dd-HH:mm:ss",
+            "time_zone": "Europe/Berlin"
+          }
+        }
+      ],
+      "order": 2,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "timestamp",
+      "extractor_config": {
+        "regex_value": "^<\\d+>([0-9:-]{19})"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"facility\"",
+      "extractor_type": "regex",
+      "converters": [
+        {
+          "type": "syslog_pri_facility",
+          "config": {}
+        }
+      ],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "facility",
+      "extractor_config": {
+        "regex_value": "^<(\\d+)>"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"message\"",
+      "extractor_type": "regex_replace",
+      "converters": [],
+      "order": 6,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "message",
+      "extractor_config": {
+        "replacement": "$1",
+        "regex": "^[^ ]+ [^ ]+ [^:]+: *(.*)"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"application_name\"",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 5,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "application_name",
+      "extractor_config": {
+        "regex_value": "^[^ ]+ [^ ]+ ([^:\\[ ]+)"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"source\"",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 3,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "source",
+      "extractor_config": {
+        "regex_value": "^[^ ]+ ([^ ]+)"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"level\"",
+      "extractor_type": "regex",
+      "converters": [
+        {
+          "type": "syslog_pri_level",
+          "config": {}
+        }
+      ],
+      "order": 1,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "level",
+      "extractor_config": {
+        "regex_value": "^<(\\d+)>"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "Syslog field \"process_id\"",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 4,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "process_id",
+      "extractor_config": {
+        "regex_value": "^[^ ]+ [^ ]+ [^\\[]+\\[([^\\]]+)\\]"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    }
+  ],
+  "version": "2.4.6"
+}
