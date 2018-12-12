@@ -24,7 +24,8 @@ field "message"` **must** be the last extractor in the list.
    extractors` button.
 3. In the upper right click on `Actions` and select `Import
    extractors`.
-4. Copy & paste the extractors from the JSON file in this repository.
+4. Copy & paste the extractors from the
+   [`extractors.json`](extractors.json) file in this repository.
 5. Optionally use the `Sort extractors` button after importing
    them. Like stated above, make sure the `Syslog field "message"`
    extractor is the last one run.
